@@ -58,4 +58,8 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="ColumnstoreIndex.sql" />
+    <Build Include="Demo-AdaptiveJoin2017.sql" />
+  </ItemGroup>
 </Project>
