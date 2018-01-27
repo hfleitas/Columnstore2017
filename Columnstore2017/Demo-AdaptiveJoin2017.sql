@@ -1,4 +1,4 @@
-use atlas
+﻿use atlas
 go
 
 create or alter procedure uspGetAssignments

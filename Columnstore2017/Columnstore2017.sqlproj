@@ -23,6 +23,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <TargetDatabase>Columnstore2017</TargetDatabase>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -59,7 +60,8 @@
     <Folder Include="Properties" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="ColumnstoreIndex.sql" />
-    <Build Include="Demo-AdaptiveJoin2017.sql" />
+    <None Include="Demo-AdaptiveJoin2017.sql" />
+    <None Include="ColumnstoreIndex.sql" />
+    <None Include="1.BackupRestore.sql" />
   </ItemGroup>
 </Project>
