@@ -132,9 +132,23 @@ go --00:00:01.371
 --  +---------+
 --  | rockon! | 10x
 --  +---------+	
+--  drop table song2
 select * into Song2 from Song 
 exec sp_spaceused 'song'; exec sp_spaceused 'song2';
 go
+
+create table RockOn (id int)
+create clustered columnstore index cidx_Loud on RockOn;
+go
+
+select Band, Album, avg(Cost) as AvgCost, min(Cost) as MinCost, max(Cost) as MaxCost
+from Song2 s
+inner join Band b on s.BandId=b.BandId
+left outer join RockOn on 1=0 -- 1sec vs 9sec
+group by Band, Album 
+order by AvgCost desc
+option(recompile);
+go 
 
 --  +--------------+
 --  | end of show! |
