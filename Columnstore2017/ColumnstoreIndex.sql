@@ -137,7 +137,8 @@ select * into Song2 from Song
 exec sp_spaceused 'song'; exec sp_spaceused 'song2';
 go
 
-create table RockOn (id int)
+drop table if exists RockOn;
+create table RockOn (id int);
 create clustered columnstore index cidx_Loud on RockOn;
 go
 
