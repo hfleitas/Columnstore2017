@@ -17,6 +17,11 @@ create table Band (BandId int identity(1,1) primary key, Band nvarchar(50), Albu
 create table Song (SongId int identity(1,1) primary key, BandId int foreign key references Band(BandId), Cost int);
 go
 
+--asdw
+create table Band (BandId int identity(1,1), Band nvarchar(50), Album nvarchar(50));
+create table Song (SongId int identity(1,1), BandId int, Cost int);
+go
+
 --  +---------+
 --  | rockon! | 1+mil 00:01:47.219, 10+mil 00:17:45.153
 --  +---------+ 
