@@ -21,6 +21,9 @@ go
 create table Band (BandId int identity(1,1), Band nvarchar(50), Album nvarchar(50));
 create table Song (SongId int identity(1,1), BandId int, Cost int);
 go
+drop table Band
+drop table Song
+
 
 --  +---------+
 --  | rockon! | 1+mil 00:01:47.219, 10+mil 00:17:45.153
