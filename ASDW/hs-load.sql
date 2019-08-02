@@ -1,4 +1,3 @@
-
 create table Band (BandId int identity(1,1) primary key, Band nvarchar(50), Album nvarchar(50));
 create table Song (SongId int identity(1,1) primary key, BandId int foreign key references Band(BandId), Cost int);
 go
