@@ -46,8 +46,20 @@ set nocount on;
 	end
 go     
 
-exec sp_spaceused 'band' --539208 KB	537120 KB	2008 KB
-exec sp_spaceused 'song' --320456 KB	319176 KB	1200 KB
+exec sp_spaceused 'band';
+exec sp_spaceused 'song'; 
 
 exec LoadBand;
 exec LoadSong;
+
+exec sp_spaceused 'band' --539208 KB	537120 KB	2008 KB
+exec sp_spaceused 'song' --320456 KB	319176 KB	1200 KB
+
+--  +---------+
+--  | rockon! | 1sec
+--  +---------+	
+select Band, Album, sum(Cost) as TotalCost
+from Song s
+inner join Band b on s.BandId=b.BandId
+group by Band, Album 
+order by TotalCost desc
