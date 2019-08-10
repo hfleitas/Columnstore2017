@@ -1,62 +1,53 @@
 --Leads
 
 if object_id('Customer') is not null drop table Customer
-begin
-	create table Customer (
- 		 [CustomerId]	int 
-		,[Name]			nvarchar(256)
-		,[Email]		varchar(320)
-	)
-	with (
-		distribution = hash(CustomerId),
-		clustered columnstore index
-	);
-end
-go
+create table Customer (
+		[CustomerId]	int 
+	,[Name]			nvarchar(256)
+	,[Email]		varchar(320)
+)
+with (
+	distribution = hash(CustomerId),
+	clustered columnstore index
+);
 
 if object_id('CustomerAccount') is not null drop table CustomerAccount
-begin
-	create table CustomerAccount (
- 		 [CustomerAccountId]	int 
-		,[CustomerId]			int 
-		,[AcctNumEnding]		int
-	)
-	with (
-		distribution = hash(CustomerId),
-		clustered columnstore index
-	);
-end
-go
+create table CustomerAccount (
+		[CustomerAccountId]	int 
+	,[CustomerId]			int 
+	,[AcctNumEnding]		int
+)
+with (
+	distribution = hash(CustomerId),
+	clustered columnstore index
+);
+
 if object_id('Lead') is not null drop table Lead
-begin
-	create table Lead (
- 		 [LeadId]		int 
-		,[Name]			nvarchar(256)
-		,[Email]		varchar(320)
-		,[Address]		nvarchar(256)
-		,[Status]		bit 
-		,[CreatedBy]	nvarchar(128) 
-		,[CreatedOn]	datetime 
-		,[ModifiedBy]	nvarchar(128) 
-		,[ModifiedOn]	datetime 
-	);
-end
-go
+create table Lead (
+		[LeadId]		int 
+	,[Name]			nvarchar(256)
+	,[Email]		varchar(320)
+	,[Address]		nvarchar(256)
+	,[Status]		bit 
+	,[CreatedBy]	nvarchar(128) 
+	,[CreatedOn]	datetime 
+	,[ModifiedBy]	nvarchar(128) 
+	,[ModifiedOn]	datetime 
+);
+
 if object_id('Ticket') is not null drop table Ticket
-begin
-	create table Ticket (
- 		 [TicketId]			int 
-		,[CustomerId]		int 
-		,[AcctNumEnding]	int	
-		,[Status]			bit 
-		,[LeadId]			int 
-		,[CreatedBy]		nvarchar(128) 
-		,[CreatedOn]		datetime 
-		,[ModifiedBy]		nvarchar(128) 
-		,[ModifiedOn]		datetime
-	);
-end
-go
+create table Ticket (
+		[TicketId]			int 
+	,[CustomerId]		int 
+	,[AcctNumEnding]	int	
+	,[Status]			bit 
+	,[LeadId]			int 
+	,[CreatedBy]		nvarchar(128) 
+	,[CreatedOn]		datetime 
+	,[ModifiedBy]		nvarchar(128) 
+	,[ModifiedOn]		datetime
+);
+
 
 --Trollhunters
 if object_id('Character') is not null drop table Character
@@ -82,7 +73,6 @@ with (
 	distribution = hash(CharacterId),
 	clustered columnstore index
 );
-go
 
 if object_id('quotes') is not null drop table quotes
 create table quotes (
@@ -91,7 +81,7 @@ create table quotes (
     quote       nvarchar(4000)   not null,
     sentiment   float
 );
-go 
+
 
 select * from dbo.Character
 select * from dbo.Quotes
@@ -118,4 +108,5 @@ https://aka.ms/azuremsi
 2. under IAM add role assignment, rig contributor.
 3. under dw server IAM, add role assignment, rig(adf) contributor and hiramMI(msi) contributor.
 
+https://github.com/furmangg/automating-azure-sql-dw
 */
