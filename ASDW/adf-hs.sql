@@ -91,7 +91,7 @@ select * from dbo.Quotes
 select * from dbo.Customer
 select * from dbo.CustomerAccount
 
-Res: 
+-- Res: 
 -- https://docs.microsoft.com/en-us/azure/data-factory/copy-activity-performance
 -- https://docs.microsoft.com/en-us/azure/data-factory/connector-azure-sql-data-warehouse
 -- https://docs.microsoft.com/en-us/azure/data-factory/connector-sql-server#append-data
