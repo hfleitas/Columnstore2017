@@ -2,7 +2,7 @@
 LoaderXL
 
 if exists (select 1 from sys.sql_logins where name='LoaderXL') drop login LoaderXL;
-create login LoaderXL with password = 'XL!dw2019'
+create login LoaderXL with password = 'XL!sqlPools2021'
 alter login LoaderXL enable
 go 
 drop user LoaderXL;
@@ -10,7 +10,7 @@ go
 create user LoaderXL for login LoaderXL
 alter role dbmanager add member LoaderXL
 
---sql-eastus2-int-dev-reboot-analytics_wh
+-- use hiramdw
 drop user LoaderXL;
 create user LoaderXL for login LoaderXL
 go
