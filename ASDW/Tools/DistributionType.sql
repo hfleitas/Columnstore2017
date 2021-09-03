@@ -105,24 +105,14 @@ SELECT * FROM size;
 go 
 
 SELECT 
-     distribution_policy_name
+     distribution_policy_name, table_name
 ,    SUM(row_count)                as table_type_row_count
 ,    SUM(reserved_space_GB)        as table_type_reserved_space_GB
 ,    SUM(data_space_GB)            as table_type_data_space_GB
 ,    SUM(index_space_GB)           as table_type_index_space_GB
 ,    SUM(unused_space_GB)          as table_type_unused_space_GB
 FROM dbo.vTableSizes
--- where table_name in(
---     'Center9',
---     'Inforce9',
---     'Claim9',
---     'Premium9',
---     'Model9',
---     'TreatyMap',
---     'MapCCIDModelFeatures',
---     'PolicyShare'
--- )
-GROUP BY distribution_policy_name
+GROUP BY distribution_policy_name, table_name
 order by table_type_data_space_GB desc ;
 
 select * from dbo.vTableSizes
