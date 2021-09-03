@@ -1,8 +1,6 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROC [dbo].[QueryActivity] AS 
+if object_id('QueryActivity') is not null drop proc QueryActivity;
+go 
+create proc [dbo].[QueryActivity] AS 
 -- + -------------- +
 -- | Query Activity |
 -- + -------------- +
@@ -40,7 +38,7 @@ inner join  cte
     on rs.request_id = cte.request_id
 left join  sys.dm_pdw_exec_sessions es 
     on rs.request_id = es.request_id
-where       rs.status<>'complete'
+-- where       rs.status<>'complete'
 order by    step_index;
 
 --request_id	step_index	operation_type	distribution_type	location_type	status	error_id	start_time	end_time	duration	TotalElapsedMinutes	TotalElapsedHours	row_count	command	request_id	status	TotalElapsedMinutes	resource_class	importance
