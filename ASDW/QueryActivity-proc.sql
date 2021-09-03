@@ -1,8 +1,6 @@
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROC [dbo].[QueryActivity] AS 
+if object_id('QueryActivity') is not null drop proc QueryActivity;
+go 
+create proc [dbo].[QueryActivity] AS 
 -- + -------------- +
 -- | Query Activity |
 -- + -------------- +
