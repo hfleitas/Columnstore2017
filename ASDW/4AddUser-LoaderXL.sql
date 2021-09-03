@@ -1,5 +1,4 @@
---dw
-LoaderXL
+--dw master
 
 if exists (select 1 from sys.sql_logins where name='LoaderXL') drop login LoaderXL;
 create login LoaderXL with password = 'XL!sqlPools2021'
