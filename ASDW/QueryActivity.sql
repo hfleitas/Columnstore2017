@@ -72,6 +72,7 @@ SELECT
 	sr.request_id,
 	ssu.session_id,
 	ssu.pdw_node_id,
+	distribution_id,
 	sr.command,
 	sr.total_elapsed_time,
 	es.login_name AS 'LoginName',
