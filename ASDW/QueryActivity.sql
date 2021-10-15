@@ -25,17 +25,47 @@ SELECT waits.session_id,
 FROM   sys.dm_pdw_waits waits
    JOIN  sys.dm_pdw_exec_requests requests
    ON waits.request_id = requests.request_id
-WHERE waits.request_id = 'QID725324'
+-- WHERE waits.request_id = 'QID725324'
 ORDER BY waits.object_name, waits.object_type, waits.state;
 
-SELECT * FROM sys.dm_pdw_sql_requests
-WHERE request_id = 'QID725324' AND step_index = 2;
+SELECT request_id, distribution_id, status, spid 
+FROM sys.dm_pdw_sql_requests 
+WHERE request_id = 'QID1766589' 
+AND step_index = 9;
 
+-- https://docs.microsoft.com/en-us/sql/t-sql/database-console-commands/dbcc-pdw-showexecutionplan-transact-sql?view=aps-pdw-2016-au7#examples-
 DBCC PDW_SHOWEXECUTIONPLAN(1, 612);
 
 SELECT * FROM sys.dm_pdw_dms_workers
 WHERE request_id = 'QID725324' AND step_index = 2;
 
+
+--https://github.com/microsoft/sql-data-warehouse-samples/blob/master/solutions/monitoring/scripts/views/microsoft.vw_sql_requests.sql
+PRINT 'Info: Creating the ''microsoft.vw_sql_requests'' view';
+GO
+create schema [microsoft]
+go
+CREATE VIEW microsoft.vw_sql_requests
+AS
+(
+	SELECT
+		sr.request_id,
+		sr.step_index,
+		(CASE WHEN (sr.distribution_id = -1 ) THEN (SELECT pdw_node_id FROM sys.dm_pdw_nodes WHERE type = 'CONTROL') ELSE d.pdw_node_id END) AS pdw_node_id,
+		sr.distribution_id,
+		sr.status,
+		sr.error_id,
+		sr.start_time,
+		sr.end_time,
+		sr.total_elapsed_time,
+		sr.row_count,
+		sr.spid,
+		sr.command
+	FROM
+		sys.pdw_distributions AS d
+		RIGHT JOIN sys.dm_pdw_sql_requests AS sr ON d.distribution_id = sr.distribution_id
+)
+GO
 
 -- Monitor tempdb
 SELECT
@@ -62,8 +92,8 @@ FROM sys.dm_pdw_nodes_db_session_space_usage AS ssu
 	INNER JOIN microsoft.vw_sql_requests AS sr ON ssu.session_id = sr.spid AND ssu.pdw_node_id = sr.pdw_node_id
 WHERE DB_NAME(ssu.database_id) = 'tempdb'
 	AND es.session_id <> @@SPID
-	and es.login_name <>'sa'
-	AND es.login_name ='hiramXL'
+	-- and es.login_name <>'sa'
+	-- AND es.login_name ='hiramXL'
 ORDER BY sr.request_id;
 
 -- Memory consumption
@@ -106,3 +136,4 @@ JOIN sys.dm_pdw_nodes nod ON t.pdw_node_id = nod.pdw_node_id
 GROUP BY t.pdw_node_id, nod.[type]
 
 SELECT * FROM sys.dm_pdw_waits
+
